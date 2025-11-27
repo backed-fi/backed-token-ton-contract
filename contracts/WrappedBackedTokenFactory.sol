@@ -44,10 +44,9 @@ contract WrappedBackedTokenProxy is TransparentUpgradeableProxy {
 /**
  * @dev
  *
- * Factory contract, used for creating new, upgradable wrapped tokens.
- *
- * The contract contains one role:
- *  - An owner, which can deploy new tokens
+ * Simplified Factory contract for Tron deployment
+ * Takes pre-deployed wrapped implementation and proxyAdmin addresses
+ * instead of deploying them in constructor to reduce gas costs
  *
  */
 contract WrappedBackedTokenFactory is Ownable {

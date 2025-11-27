@@ -1,5 +1,5 @@
 {
-  "name": "backed-token-ton-contract",
+  "name": "backed-token-tron-contract",
   "version": "1.1.0",
   "description": "ERC20 Token contracts for Backed Finance AG",
   "main": "index.js",
