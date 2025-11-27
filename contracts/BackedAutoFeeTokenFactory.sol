@@ -43,12 +43,9 @@ contract BackedTokenProxy is TransparentUpgradeableProxy {
 
 /**
  * @dev
- *
- * Factory contract, used for creating new, upgradable tokens.
- *
- * The contract contains one role:
- *  - An owner, which can deploy new tokens
- *
+ * Simplified Factory contract for Tron deployment
+ * Takes pre-deployed implementation and proxyAdmin addresses
+ * instead of deploying them in constructor to reduce gas costs
  */
 contract BackedAutoFeeTokenFactory is Ownable {
     ProxyAdmin public immutable proxyAdmin;
@@ -58,17 +55,17 @@ contract BackedAutoFeeTokenFactory is Ownable {
     event NewImplementation(address indexed newImplementation);
 
     /**
-     * @param proxyAdminOwner The address of the account that will be set as owner of the deployed ProxyAdmin
+     * @param _tokenImplementation Pre-deployed implementation contract address
+     * @param _proxyAdmin Pre-deployed ProxyAdmin contract address
      */
-    constructor(address proxyAdminOwner) {
+    constructor(address _tokenImplementation, address _proxyAdmin) {
         require(
-            proxyAdminOwner != address(0),
+            _tokenImplementation != address(0) && _proxyAdmin != address(0),
             "Factory: address should not be 0"
         );
 
-        tokenImplementation = new BackedAutoFeeTokenImplementation();
-        proxyAdmin = new ProxyAdmin();
-        proxyAdmin.transferOwnership(proxyAdminOwner);
+        tokenImplementation = BackedAutoFeeTokenImplementation(_tokenImplementation);
+        proxyAdmin = ProxyAdmin(_proxyAdmin);
     }
 
     struct TokenDeploymentConfiguration {
