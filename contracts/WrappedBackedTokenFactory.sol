@@ -60,15 +60,14 @@ contract WrappedBackedTokenFactory is Ownable {
     /**
      * @param proxyAdminOwner The address of the account that will be set as owner of the deployed ProxyAdmin
      */
-    constructor(address proxyAdminOwner) {
+    constructor(address _wrappedTokenImplementation, address _proxyAdmin) {
         require(
-            proxyAdminOwner != address(0),
+            _wrappedTokenImplementation != address(0) && _proxyAdmin != address(0),
             "Factory: address should not be 0"
         );
 
-        wrappedTokenImplementation = new WrappedBackedTokenImplementation();
-        proxyAdmin = new ProxyAdmin();
-        proxyAdmin.transferOwnership(proxyAdminOwner);
+        wrappedTokenImplementation = WrappedBackedTokenImplementation(_wrappedTokenImplementation);
+        proxyAdmin = ProxyAdmin(_proxyAdmin);
     }
 
     struct TokenDeploymentConfiguration {
