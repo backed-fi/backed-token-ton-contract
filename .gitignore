@@ -6,7 +6,9 @@ typechain
 
 #Hardhat files
 cache
+cache-tron
 artifacts
+artifacts-tron
 
 # Created by https://www.toptal.com/developers/gitignore/api/macos,webstorm+all
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,webstorm+all
